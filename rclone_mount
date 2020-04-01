@@ -5,6 +5,8 @@
 ######################
 ### Version 0.96.6 ###
 ######################
+###      Mick      ###
+######################
 
 ####### EDIT ONLY THESE SETTINGS #######
 
@@ -15,19 +17,19 @@
 # 4. Optional: include extra folders in mergerfs mount
 
 # REQUIRED SETTINGS
-RcloneRemoteName="gdrive_vfs" # Name of rclone remote mount WITHOUT ':'. NOTE: Choose your encrypted remote for sensitive data
+RcloneRemoteName="tdrive_media_vfs" # Name of rclone remote mount WITHOUT ':'. NOTE: Choose your encrypted remote for sensitive data
 RcloneMountShare="/mnt/user/mount_rclone" # where your rclone remote will be located without trailing slash  e.g. /mnt/user/mount_rclone
 MergerfsMountShare="/mnt/user/mount_mergerfs" # location without trailing slash  e.g. /mnt/user/mount_mergerfs. Enter 'ignore' to disable
-DockerStart="nzbget plex sonarr radarr ombi" # list of dockers, separated by space, to start once mergerfs mount verified. Remember to disable AUTOSTART for dockers added in docker settings page
-LocalFilesShare="/mnt/user/local" # location of the local files and MountFolders you want to upload without trailing slash to rclone e.g. /mnt/user/local. Enter 'ignore' to disable
-MountFolders=\{"downloads/complete,downloads/intermediate,downloads/seeds,movies,tv"\} # comma separated list of folders to create within the mount
+DockerStart="plex ombi tautulli radarr sonarr nzbget bazarr binhex-krusader" # list of dockers, separated by space, to start once mergerfs mount verified. Remember to disable AUTOSTART for dockers added in docker settings page
+LocalFilesShare="/mnt/user/Media" # location of the local files and MountFolders you want to upload without trailing slash to rclone e.g. /mnt/user/local. Enter 'ignore' to disable
+MountFolders=\{"movies,television,documentaries"\} # comma separated list of folders to create within the mount
 
 # Note: Again - remember to NOT use ':' in your remote name above
 
 # OPTIONAL SETTINGS
 
 # Add extra paths to mergerfs mount in addition to LocalFilesShare
-LocalFilesShare2="ignore" # without trailing slash e.g. /mnt/user/other__remote_mount/or_other_local_folder.  Enter 'ignore' to disable
+LocalFilesShare2="/mnt/user/rclone_upload" # without trailing slash e.g. /mnt/user/other__remote_mount/or_other_local_folder.  Enter 'ignore' to disable
 LocalFilesShare3="ignore"
 LocalFilesShare4="ignore"
 
@@ -53,7 +55,7 @@ VirtualIPNumber="2" # creates eth0:x e.g. eth0:1.  I create a unique virtual IP 
 ###############################################################################
 
 ####### Preparing mount location variables #######
-LocalFilesLocation="$LocalFilesShare/$RcloneRemoteName" # Location for local files to be merged with rclone mount
+LocalFilesLocation="$LocalFilesShare" # Location for local files to be merged with rclone mount
 RcloneMountLocation="$RcloneMountShare/$RcloneRemoteName" # Location for rclone mount
 MergerFSMountLocation="$MergerfsMountShare/$RcloneRemoteName" # Rclone data folder location
 
