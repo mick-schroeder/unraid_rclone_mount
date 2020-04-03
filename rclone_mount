@@ -22,6 +22,7 @@ RcloneMountShare="/mnt/user/mount_rclone" # where your rclone remote will be loc
 MergerfsMountShare="/mnt/user/mount_mergerfs" # location without trailing slash  e.g. /mnt/user/mount_mergerfs. Enter 'ignore' to disable
 DockerStart="plex ombi tautulli radarr sonarr nzbget bazarr binhex-krusader" # list of dockers, separated by space, to start once mergerfs mount verified. Remember to disable AUTOSTART for dockers added in docker settings page
 LocalFilesShare="/mnt/user/Media" # location of the local files and MountFolders you want to upload without trailing slash to rclone e.g. /mnt/user/local. Enter 'ignore' to disable
+UploadFilesShare="/mnt/user/rclone_upload"
 MountFolders=\{"movies,television,documentaries"\} # comma separated list of folders to create within the mount
 
 # Note: Again - remember to NOT use ':' in your remote name above
@@ -56,16 +57,17 @@ VirtualIPNumber="2" # creates eth0:x e.g. eth0:1.  I create a unique virtual IP 
 
 ####### Preparing mount location variables #######
 LocalFilesLocation="$LocalFilesShare" # Location for local files to be merged with rclone mount
+UploadFilesLocation="$UploadFilesShare/$RcloneRemoteName" # Location for upload files to be merged with rclone mount
 RcloneMountLocation="$RcloneMountShare/$RcloneRemoteName" # Location for rclone mount
 MergerFSMountLocation="$MergerfsMountShare/$RcloneRemoteName" # Rclone data folder location
 
 ####### create directories for rclone mount and mergerfs mounts #######
 mkdir -p /mnt/user/appdata/other/rclone/remotes/$RcloneRemoteName #for script files
-if [[  $LocalFileShare == 'ignore' ]]; then
+if [[  $UploadFilesShare == 'ignore' ]]; then
 	echo "$(date "+%d.%m.%Y %T") INFO: Not creating local folders as requested."
 else
 	echo "$(date "+%d.%m.%Y %T") INFO: Creating local folders."
-	eval mkdir -p $LocalFilesLocation/"$MountFolders"
+	eval mkdir -p $UploadFilesLocation/"$MountFolders"
 fi
 mkdir -p $RcloneMountLocation
 mkdir -p $MergerFSMountLocation
