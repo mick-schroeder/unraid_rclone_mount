@@ -30,7 +30,7 @@ MountFolders=\{"movies,television,documentaries"\} # comma separated list of fol
 # OPTIONAL SETTINGS
 
 # Add extra paths to mergerfs mount in addition to LocalFilesShare
-LocalFilesShare2="/mnt/user/rclone_upload" # without trailing slash e.g. /mnt/user/other__remote_mount/or_other_local_folder.  Enter 'ignore' to disable
+LocalFilesShare2="/mnt/user/rclone_upload/tdrive_media_vfs" # without trailing slash e.g. /mnt/user/other__remote_mount/or_other_local_folder.  Enter 'ignore' to disable
 LocalFilesShare3="ignore"
 LocalFilesShare4="ignore"
 
@@ -186,7 +186,7 @@ else
 			LocalFilesShare4=""
 		fi
 # mergerfs mount command
-		mergerfs $LocalFilesLocation:$RcloneMountLocation$LocalFilesShare2$LocalFilesShare3$LocalFilesShare4 $MergerFSMountLocation -o rw,async_read=false,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff,cache.files=partial,dropcacheonclose=true
+		mergerfs $LocalFilesLocation:$RcloneMountLocation$LocalFilesShare2$LocalFilesShare3$LocalFilesShare4 $MergerFSMountLocation/ -o rw,async_read=false,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff,cache.files=partial,dropcacheonclose=true
 # check if mergerfs mount successful
 		echo "$(date "+%d.%m.%Y %T") INFO: Checking if ${RcloneRemoteName} mergerfs mount created."
 		if [[ -f "$MergerFSMountLocation/mountcheck" ]]; then
